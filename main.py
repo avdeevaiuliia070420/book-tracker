@@ -54,13 +54,34 @@ def add_book(books):
     print("Книга успешно добавлена!")
 
 def list_books(books):
-    pass
+    """Вывод всех книг с нумерацией."""
+    if not books:
+        print("\nСписок книг пуст.")
+        return
+    print("\n--- Все книги ---")
+    for idx, book in enumerate(books, 1):
+        print(f"{idx}. {book['автор']} - {book['название']} | Оценка: {book['оценка']} | Дата: {book['дата_прочтения']}")
 
 def average_rating(books):
-    pass
+    """Расчёт и вывод средней оценки."""
+    if not books:
+        print("\nНет книг для расчёта средней оценки.")
+        return
+    avg = sum(book['оценка'] for book in books) / len(books)
+    print(f"\nСредняя оценка: {avg:.2f}")
 
 def author_stats(books):
-    pass
+    """Статистика: количество книг по каждому автору."""
+    if not books:
+        print("\nНет книг для статистики.")
+        return
+    stats = {}
+    for book in books:
+        author = book['автор']
+        stats[author] = stats.get(author, 0) + 1
+    print("\n--- Статистика по авторам ---")
+    for author, count in stats.items():
+        print(f"{author}: {count} книг(и)")
 
 def delete_book(books):
     pass
