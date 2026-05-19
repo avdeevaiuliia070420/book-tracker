@@ -20,7 +20,38 @@ def save_books(books):
 
 # Заглушки – будут реализованы в соответствующих ветках
 def add_book(books):
-    pass
+    print("\n--- Добавление новой книги ---")
+    author = input("Автор: ").strip()
+    title = input("Название: ").strip()
+    
+    # Проверка дубликата (закроет Issue #1)
+    for book in books:
+        if book['автор'].lower() == author.lower() and book['название'].lower() == title.lower():
+            print("Ошибка: Такая книга уже существует в списке.")
+            return
+    
+    # Валидация оценки
+    while True:
+        try:
+            rating = int(input("Оценка (1-5): "))
+            if 1 <= rating <= 5:
+                break
+            else:
+                print("Оценка должна быть целым числом от 1 до 5.")
+        except ValueError:
+            print("Пожалуйста, введите целое число.")
+    
+    date = input("Дата прочтения (ГГГГ-ММ-ДД): ").strip()
+    
+    new_book = {
+        "автор": author,
+        "название": title,
+        "оценка": rating,
+        "дата_прочтения": date
+    }
+    books.append(new_book)
+    save_books(books)
+    print("Книга успешно добавлена!")
 
 def list_books(books):
     pass
