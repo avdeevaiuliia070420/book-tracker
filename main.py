@@ -84,7 +84,21 @@ def author_stats(books):
         print(f"{author}: {count} книг(и)")
 
 def delete_book(books):
-    pass
+    """Удаление книги по её порядковому номеру в списке."""
+    if not books:
+        print("\nСписок книг пуст.")
+        return
+    list_books(books)   # покажем список, чтобы выбрать номер
+    try:
+        idx = int(input("\nВведите номер книги для удаления: ")) - 1
+        if 0 <= idx < len(books):
+            removed = books.pop(idx)
+            save_books(books)
+            print(f"Книга '{removed['автор']} - {removed['название']}' удалена.")
+        else:
+            print("Неверный номер книги.")
+    except ValueError:
+        print("Ошибка: введите целое число.")
 
 def main():
     books = load_books()
